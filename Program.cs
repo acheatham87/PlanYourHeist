@@ -10,7 +10,9 @@ namespace planYourHeist
         {
             int bankDifficultyLevel = 100;
             int skillSum = 0;
-            
+            int luckValue = new Random().Next(-10,10);
+            bankDifficultyLevel += luckValue;
+
             Console.WriteLine("Plan your heist!");
 
             List<TeamMember> memberList = new List<TeamMember>();
@@ -46,6 +48,10 @@ namespace planYourHeist
             {                
                 skillSum += member.SkillLevel;
             }
+
+            Console.WriteLine($"The teams combined skill level is {skillSum}.");
+            Console.WriteLine($"The banks difficulty is {bankDifficultyLevel}");
+
             if(skillSum >= bankDifficultyLevel)
             {
                 Console.WriteLine("SUCCESS!!!");
