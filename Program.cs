@@ -8,10 +8,10 @@ namespace planYourHeist
 
         static void Main(string[] args)
         {
-            int bankDifficultyLevel = 100;
-            int skillSum = 0;
-
             Console.WriteLine("Plan your heist!");
+            Console.WriteLine("Enter the bank difficulty Level.");
+            int bankDifficultyLevel = int.Parse(Console.ReadLine());
+            int bankDifficultyCheck = bankDifficultyLevel;
 
             List<TeamMember> memberList = new List<TeamMember>();
             AddNewMember();
@@ -42,18 +42,20 @@ namespace planYourHeist
 
             Console.WriteLine("How many trial runs would you like to do?");
             int trialRuns = int.Parse(Console.ReadLine());
-         
+            
+            int skillSum = 0;         
             foreach (TeamMember member in memberList)
             {                
                 skillSum += member.SkillLevel;
             }
 
+            int success = 0;
+            int failure = 0;
+            
             for(int i = 0; i < trialRuns; i++)
             {
-
                 int luckValue = new Random().Next(-10,10);
                 bankDifficultyLevel += luckValue;
-
 
                 Console.WriteLine($"The teams combined skill level is {skillSum}.");
                 Console.WriteLine($"The banks difficulty is {bankDifficultyLevel}");
@@ -61,13 +63,18 @@ namespace planYourHeist
                 if(skillSum >= bankDifficultyLevel)
                 {
                     Console.WriteLine("SUCCESS!!!");
+                    success++;
+            
                 }
                 else
                 {
                     Console.WriteLine("YOU HAVE BEEN CAUGHT");
+                    failure++;
                 }
+                bankDifficultyLevel = bankDifficultyCheck;
             }
 
+            Console.WriteLine($"You succeeded {success} times and failed {failure} times.");
         }
     }
 }
